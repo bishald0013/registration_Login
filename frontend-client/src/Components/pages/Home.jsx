@@ -1,37 +1,40 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
     <div className="container main_container">
-        <div className="heading_container mt-5">
-        <h1>Hello this is home page</h1>
-      <hr/>
-      <p className="fs-5 fst-italic">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rem tempore
-        voluptatem dicta culpa cupiditate eius laboriosam numquam ea? Veniam
-        quisquam aspernatur ex! Assumenda voluptates perspiciatis cum ipsam
-        provident dolores itaque exercitationem. Deserunt ducimus officiis non
-        veritatis voluptatem! Sint ea iusto quis blanditiis natus error
-        voluptatem itaque quasi, perspiciatis facere perferendis eius sed
-        sapiente sequi laudantium. Placeat voluptatibus obcaecati labore sit
-        doloribus incidunt provident temporibus ipsam accusantium culpa deleniti
-        numquam aliquam vero vel ipsum repudiandae aperiam recusandae
-        laudantium, rerum facere, iste minima porro, libero molestiae. Suscipit
-        quas neque corporis in earum qui dicta, ex eos ipsum deserunt tenetur
-        cumque quaerat dolorem praesentium illo. Libero molestiae quos
-        voluptates molestias blanditiis iure illo debitis nulla quas cupiditate
-        alias consectetur eum, ipsa non unde itaque cumque ad? Similique,
-        blanditiis quas quod error tempore cupiditate iure? Nostrum maiores
-        perferendis sapiente tempore obcaecati eius! Facilis ratione iusto
-        commodi sint ipsa quasi quis soluta non voluptates quia nihil nisi
-        voluptas repudiandae consectetur vero, eius esse similique error maxime
-        id dolorem. Expedita quos odit, nesciunt, obcaecati sit totam doloremque
-        consequatur id facere explicabo ipsa, doloribus maiores! Voluptatibus,
-        labore quaerat! Quis itaque in dicta similique mollitia vel eum dolores
-        saepe, dolorem delectus, fugiat maiores voluptatum. Nemo atque eos
-        praesentium!
-      </p>
-        </div>
+      <div className="heading_container mt-5 pt-5">
+        <h1>This is home page</h1>
+      <hr />
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit
+          excepturi libero labore vero voluptate impedit repudiandae fugiat,
+          consectetur asperiores possimus esse saepe consequatur non nobis autem
+          doloremque rem quae reprehenderit aperiam tempore, perspiciatis sunt.
+          Nobis inventore sunt, ipsam molestiae alias, eveniet quas dignissimos
+          vero harum, nostrum sit officiis fugit totam velit suscipit laudantium
+          atque. Obcaecati labore ab eaque aspernatur accusamus pariatur nulla
+          iste cumque quasi porro dolore ullam quidem excepturi reprehenderit
+          nobis, quae maxime blanditiis amet repellat hic consequatur similique
+          praesentium laudantium dicta? Sequi quos optio tempora animi commodi
+          ducimus, nulla et hic quam iure harum, ipsam laudantium. Sunt qui
+          nulla iste facilis veritatis, eius ut tempora expedita itaque earum
+          quis deserunt! Hic, rerum. Quia ad aliquid expedita tempora corrupti!
+          Inventore ab illo nulla nesciunt aspernatur, iure necessitatibus nam,
+          eligendi architecto rerum, possimus iusto maiores. Unde magni ipsa
+          laboriosam cum fuga ad a odit officiis nobis blanditiis quibusdam
+          omnis ducimus ex obcaecati natus sint voluptatem, esse dolores
+          excepturi distinctio et! Exercitationem expedita asperiores
+          blanditiis, corporis nostrum provident mollitia facere magni minus,
+          sequi quam fugiat, natus ipsa officiis! Dolores eius beatae
+          voluptatem. Hic itaque velit nesciunt minus perferendis modi veniam
+          laudantium perspiciatis. Doloribus laborum officiis consectetur
+          reiciendis tempore, dolorum velit qui.
+        </p>
+
+        
+      </div>
     </div>
   );
 }
