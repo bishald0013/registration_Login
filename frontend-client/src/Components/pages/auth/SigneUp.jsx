@@ -51,7 +51,7 @@ function SigneUp() {
 
   return (
     <div className="container main_container mb-5">
-      <div className="container mt-5">
+      <div className="container mt-5 ">
         <form onSubmit={handleSubmit}> 
           <div class="row mb-3">
             <label for="username" class="col-sm-2 col-form-label">

@@ -61,7 +61,7 @@ const Login = () => {
           <button type="submit" class="btn btn-primary">
             Login
           </button>
-          <Link to="/">Forgot Password</Link>
+          <Link to="/resetpassword">Forgot Password</Link>
         </form>
         {error.status ? <Alert severity={error.type}>{error.msg}</Alert> : ""}
       </div>
