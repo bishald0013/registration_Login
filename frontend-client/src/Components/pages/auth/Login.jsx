@@ -24,7 +24,11 @@ const Login = () => {
         if(actualData.email && actualData.password){
             document.getElementById("login-form").reset()
             setError({status: true, msg:"Loged in successfully", type:"success"})
-            navigate("/")
+
+            setTimeout(() => {
+              navigate("/dashbord")
+            }, 1000)
+
             console.log(actualData)
         }else{
             setError({status: true, msg:"All fields are require", type:"error"})

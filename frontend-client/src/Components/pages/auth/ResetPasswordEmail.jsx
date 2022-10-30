@@ -3,15 +3,13 @@ import React from "react";
 import {useState} from "react"
 
 
-function ResetPassword() {
+function ResetPasswordEmail() {
 
     const [error, setError] = useState({
         status: false,
         msg: "",
         type: ""
       })
-
-
 
       const handleSubmit = (e) => {
         e.preventDefault();
@@ -30,7 +28,7 @@ function ResetPassword() {
 
   return (
     <div className="container w-25">
-      <form onSubmit={handleSubmit}>
+      <form id="password-reset-email-form" onSubmit={handleSubmit}>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">
             Email address
@@ -52,4 +50,4 @@ function ResetPassword() {
   );
 }
 
-export default ResetPassword;
+export default ResetPasswordEmail;

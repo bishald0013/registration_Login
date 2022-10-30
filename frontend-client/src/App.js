@@ -4,8 +4,9 @@ import Home from "./Components/pages/Home";
 import Contact from "./Components/pages/Contact";
 import Login from "./Components/pages/auth/Login";
 import SigneUp from "./Components/pages/auth/SigneUp";
-import ResetPassword from "./Components/pages/auth/ResetPassword";
-import PasswordResetEmail from "./Components/pages/auth/PasswordResetEmail";
+import ResetPasswordEmail from "./Components/pages/auth/ResetPasswordEmail";
+import PasswordReset from "./Components/pages/auth/PasswordReset";
+import Dashbord from "./Components/pages/Dashbord";
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
             <Route path="contact" element={<Contact/>}></Route>
             <Route path="login" element={<Login/>}></Route>
             <Route path="signeup" element={<SigneUp/>}></Route>
-            <Route path="resetpassword" element={<ResetPassword/>}></Route>
-            <Route path="reset" element={<PasswordResetEmail/>}></Route>
+            <Route path="resetpassword" element={<ResetPasswordEmail/>}></Route>
+            <Route path="reset" element={<PasswordReset/>}></Route>
+            <Route path="/dashbord" element={<Dashbord />}></Route>
           </Route>
         </Routes>      
       </BrowserRouter>

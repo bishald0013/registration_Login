@@ -28,23 +28,32 @@ function SigneUp() {
 
     const {username, email, password , confirm_password, tc} = actualUser
 
+  if(password && confirm_password){
     if(password === confirm_password){
       if(tc != null){
         if(username && email){
+          
+          document.getElementById("signeup-form").reset()
+          
           setError({status: true, msg: "successfully created", type: "Success"})
           console.log(actualUser)
-          navigate("/contact")
+          
+          navigate("/")
+
         }else{
           console.log("username or email require")
-          setError({status: false, msg:"userName and email bolth required", type: "error"})
+          setError({status: true, msg:"userName and email bolth required", type: "error"})
         }
       }else{
         console.log("please aggree terms and codition")
-        setError({status: false, msg:"please agree termsa & condition", type: "error"})
+        setError({status: true, msg:"please agree terms & condition", type: "error"})
       }
     }else{
-      console.log("password doesnot match")
+      setError({status: true, msg:"password and confirm password doesnot match", type: "error"})
     }
+  }else{
+    setError({status: true, msg:"password and confirm password required", type: "error"})
+  }
 
   }
 
@@ -52,7 +61,7 @@ function SigneUp() {
   return (
     <div className="container main_container mb-5">
       <div className="container mt-5 ">
-        <form onSubmit={handleSubmit}> 
+        <form id="signeup-form" onSubmit={handleSubmit}> 
           <div class="row mb-3">
             <label for="username" class="col-sm-2 col-form-label">
               UserName
