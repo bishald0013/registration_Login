@@ -1,6 +1,7 @@
 import { Alert } from "@mui/material";
 import React from "react";
 import {useState} from "react"
+import {useNavigate} from "react-router-dom"
 
 
 function ResetPasswordEmail() {
@@ -10,6 +11,8 @@ function ResetPasswordEmail() {
         msg: "",
         type: ""
       })
+
+      const navigate = useNavigate()
 
       const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,6 +24,9 @@ function ResetPasswordEmail() {
           console.log(actualData);
           document.getElementById('password-reset-email-form').reset()
           setError({ status: true, msg: "Password Reset Email Sent. Check Your Email !!", type: 'success' })
+          setTimeout(()=>{
+            navigate("/reset")
+          },1000)
         } else {
           setError({ status: true, msg: "Please Provide Valid Email", type: 'error' })
         }
