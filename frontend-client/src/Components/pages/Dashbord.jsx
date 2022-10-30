@@ -1,16 +1,107 @@
-import React from 'react'
+import { Alert } from "@mui/material";
+import React from "react";
+import { useState } from "react";
+import {useNavigate} from "react-router-dom"
 
 function Dashbord() {
+
+  const [error, setError] = useState({
+    status: false,
+    msg:"",
+    type:""
+  })
+
+  const navigate = useNavigate()
+
+  const handleSubmit = (e)=>{
+    e.preventDefault()
+
+      const newChangedPassword = new FormData(e.currentTarget)
+      const newPassword = {
+        password: newChangedPassword.get("password"),
+        confirm_password: newChangedPassword.get("confirm_password")
+      }
+
+      if(newPassword.password && newPassword.confirm_password){
+        if(newPassword.password === newPassword.confirm_password){
+
+          document.getElementById("confirm-password").reset()
+          setError({status: true, msg:"Successfully changed password", type: "success"})
+          setTimeout(() => {
+            navigate("/contact")
+          },1000)
+          console.log(newPassword)
+
+        }else{
+          setError({status: true, msg:"password and confirm both does't match", type: "error"})
+        }
+      }else{
+        setError({status: true, msg:"Both the fields are required", type: "error"})
+      }
+
+  }
+
+
   return (
-    <div className='container'>
-        <div className="row">
-            <div className="col-lg-6">
-                <h1>Email: bishaldeb282@gmail.com</h1>
-                <h2>UserName: Bishal Deb</h2>
-            </div>
+    <div className="container">
+      <div className="row mt-5 mx-3">
+        <div className="col-lg-6">
+          <h1 className="fs-6">Email: bishaldeb282@gmail.com</h1>
+          <h2 className="fs-5">UserName: Bishal Deb</h2>
         </div>
+        <div className="col-lg-6">
+          <form id="confirm-password" action="" onSubmit={handleSubmit}>
+            <div class="row g-3 align-items-center">
+              <div class="col-auto">
+                <label for="inputPassword6" class="col-form-label">
+                  Password
+                </label>
+              </div>
+              <div class="col-auto">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="form-control"
+                  aria-describedby="passwordHelpInline"
+                />
+              </div>
+              <div class="col-auto">
+                <span id="passwordHelpInline" class="form-text">
+                  Must be 8-20 characters long.
+                </span>
+              </div>
+            </div>
+            <div class="row g-3 align-items-center mt-3">
+              <div class="col-auto">
+                <label for="inputPassword6" class="col-form-label">
+                  Confirm_password
+                </label>
+              </div>
+              <div class="col-auto">
+                <input
+                  type="password"
+                  id="confirm_password"
+                  name="confirm_password"
+                  class="form-control"
+                  aria-describedby="passwordHelpInline"
+                />
+              </div>
+              <div class="col-auto">
+                <span id="passwordHelpInline" class="form-text">
+                  Must be 8-20 characters long.
+                </span>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+            Submit
+          </button>
+          </form>
+          {error.status ? <Alert severity={error.type}>{error.msg}</Alert> : ""}
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Dashbord
+export default Dashbord;
