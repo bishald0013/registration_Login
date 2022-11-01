@@ -1,9 +1,12 @@
-import { Alert } from "@mui/material";
+ import { Alert } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import {useNavigate} from "react-router-dom"
+import { useRegisterUserMutation } from "../../services/userAuthApi";
 
 function SigneUp() {
+
+  const [resp, setResp] = useState()
 
   const [error, setError] = useState({
     status: false,
@@ -12,13 +15,14 @@ function SigneUp() {
   })
 
   const navigate = useNavigate()
+  const [registerUser] = useRegisterUserMutation()
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = async (e) =>{
     e.preventDefault()
 
     const user = new FormData(e.currentTarget)
     const actualUser = {
-        username: user.get("username"),
+        name: user.get("username"),
         email: user.get("email"),
         password: user.get("password"),
         confirm_password: user.get("confirm_password"),
@@ -26,16 +30,16 @@ function SigneUp() {
     }
    
 
-    const {username, email, password , confirm_password, tc} = actualUser
+    const {name, email, password , confirm_password, tc} = actualUser
 
   if(password && confirm_password){
     if(password === confirm_password){
       if(tc != null){
-        if(username && email){
+        if(name && email){
           
-          document.getElementById("signeup-form").reset()
-          
-          setError({status: true, msg: "successfully created", type: "Success"})
+          const res = await registerUser(actualUser)
+          setResp(resp)
+          console.log(res)
           console.log(actualUser)
           
           navigate("/")
@@ -99,9 +103,9 @@ function SigneUp() {
             <div class="row mb-3">
               <div class="col-sm-10 offset-sm-2">
                 <div class="form-check">
-                  <input class="form-check-input" name="tc" type="checkbox" id="gridCheck1" />
+                  <input class="form-check-input" name="tc" value={true} type="checkbox" id="gridCheck1" />
                   <label class="form-check-label" for="gridCheck1">
-                    Example checkbox
+                    Terms and condition
                   </label>
                 </div>
               </div>

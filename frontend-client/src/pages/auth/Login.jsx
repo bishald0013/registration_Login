@@ -1,6 +1,8 @@
 import { TextField, Button, Box, Alert } from "@mui/material";
 import {Link, useNavigate} from "react-router-dom"
 import { useState } from "react";
+import { useLoginUserMutation } from "../../services/userAuthApi";
+import { setToken } from "../../services/LocalStorage";
 
 const Login = () => {
 
@@ -12,7 +14,9 @@ const Login = () => {
 
     const navigate = useNavigate()
 
-    const handleSubmit = (e) =>{
+    const [loginUser] = useLoginUserMutation()
+
+    const handleSubmit = async (e) =>{
         e.preventDefault()
 
         const user = new FormData(e.currentTarget)
@@ -22,14 +26,22 @@ const Login = () => {
         }
 
         if(actualData.email && actualData.password){
-            document.getElementById("login-form").reset()
-            setError({status: true, msg:"Loged in successfully", type:"success"})
 
-            setTimeout(() => {
-              navigate("/dashbord")
-            }, 1000)
+          const res = await loginUser(actualData)
 
-            console.log(actualData)
+          if(res.data.status !== "fail"){
+
+            navigate("/dashbord")
+
+            setToken(res.data.token)
+
+          }else{
+              setError({status: true, msg: res.data.mesasge, type: "error"})
+          }
+
+          console.log(res.data.status)
+          
+
         }else{
             setError({status: true, msg:"All fields are require", type:"error"})
         }

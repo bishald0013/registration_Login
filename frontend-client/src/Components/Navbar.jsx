@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { getToken } from "../services/LocalStorage";
 
 function Navbar() {
+  const token = getToken("token");
+
   return (
     <div>
       <header className="container mt-5">
@@ -34,12 +37,28 @@ function Navbar() {
                     Contact
                   </Link>
                 </li>
-                <li class="nav-item">
-                  <Link to='Login' class="nav-link active">Login</Link>
-                </li>
-                <li class="nav-item">
-                  <Link to='signeup' class="nav-link active">SigneUp</Link>
-                </li>
+
+                {token ? (
+                  <li class="nav-item">
+                    <Link to="dashbord" class="nav-link active">
+                      Dashbord
+                    </Link>
+                  </li>
+                ) : (
+                  <div>
+                    {" "}
+                    <li class="nav-item">
+                      <Link to="Login" class="nav-link active">
+                        Login
+                      </Link>
+                    </li>
+                    <li class="nav-item">
+                      <Link to="signeup" class="nav-link active">
+                        SigneUp
+                      </Link>
+                    </li>{" "}
+                  </div>
+                )}
               </ul>
             </div>
           </div>

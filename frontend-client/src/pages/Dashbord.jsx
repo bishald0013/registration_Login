@@ -2,6 +2,9 @@ import { Alert } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import {useNavigate} from "react-router-dom"
+import { getToken } from "../services/LocalStorage";
+import { useChangePasswordMutation, useGetLoggedUserMutation } from "../services/userAuthApi"
+
 
 function Dashbord() {
 
@@ -13,7 +16,12 @@ function Dashbord() {
 
   const navigate = useNavigate()
 
-  const handleSubmit = (e)=>{
+  const [getLoggedUser] = useGetLoggedUserMutation() 
+
+  const [changePassword] = useChangePasswordMutation()
+  const token = getToken("token")
+
+  const handleSubmit = async (e)=>{
     e.preventDefault()
 
       const newChangedPassword = new FormData(e.currentTarget)
@@ -25,12 +33,8 @@ function Dashbord() {
       if(newPassword.password && newPassword.confirm_password){
         if(newPassword.password === newPassword.confirm_password){
 
-          document.getElementById("confirm-password").reset()
-          setError({status: true, msg:"Successfully changed password", type: "success"})
-          setTimeout(() => {
-            navigate("/contact")
-          },1000)
-          console.log(newPassword)
+          const resp =  await changePassword({newPassword, token})
+          console.log(resp)
 
         }else{
           setError({status: true, msg:"password and confirm both does't match", type: "error"})

@@ -93,10 +93,10 @@ class UserController {
             res.status(400).send({
               status: "fail",
               message: "Email or password doesnot match",
-            });
+            })
           }
         } else {
-          res.status(400).send({ status: "Email is not found" });
+          res.status(400).send({ status:"fail", message:"Email is not found" });
         }
       } else {
         res
@@ -126,10 +126,10 @@ class UserController {
   //change password
   static ChangePassword = async (req, res) => {
     try {
-      const { newPassword, confirm_newPassword } = req.body;
-      if (newPassword === confirm_newPassword) {
+      const { password, confirm_password } = req.body;
+      if (password === confirm_password) {
         const salt = await bcrypt.genSalt(10);
-        const newHashed_password = await bcrypt.hash(newPassword, salt);
+        const newHashed_password = await bcrypt.hash(password, salt);
 
         await UserModel.findByIdAndUpdate(req.user._id, {
           $set: { password: newHashed_password },
@@ -152,7 +152,9 @@ class UserController {
   static LoggedUser = async (req, res) => {
     try {
       res.status(200).send({ user: req.user });
-    } catch (error) {}
+    } catch (error) {
+      res.status(400).send({"status": "fail", "mesage": "User is not login"})
+    }
   };
 
   //Reset user password
