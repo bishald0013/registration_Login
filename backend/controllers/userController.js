@@ -45,7 +45,7 @@ class UserController {
 
             res
               .status(201)
-              .send({ status: "Successfully created user", token: token });
+              .send({ status:"success", message:"Successfully created user", token: token });
           } catch (error) {
             console.log(error);
             res.send({ status: "fails", message: "something went wrong!" });

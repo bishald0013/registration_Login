@@ -4,6 +4,7 @@ import { useState } from "react";
 import {useNavigate} from "react-router-dom"
 import { getToken } from "../services/LocalStorage";
 import { useChangePasswordMutation, useGetLoggedUserMutation } from "../services/userAuthApi"
+import {removeToken} from "../services/LocalStorage"
 
 
 function Dashbord() {
@@ -20,6 +21,15 @@ function Dashbord() {
 
   const [changePassword] = useChangePasswordMutation()
   const token = getToken("token")
+
+
+
+  const handleClick = (e) =>{
+    e.preventDefault()
+    removeToken('token')
+    navigate("/login")
+
+  }
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
@@ -52,6 +62,7 @@ function Dashbord() {
         <div className="col-lg-6">
           <h1 className="fs-6">Email: bishaldeb282@gmail.com</h1>
           <h2 className="fs-5">UserName: Bishal Deb</h2>
+          <button onClick={handleClick} type="submit" class="btn btn-primary">Logout</button>
         </div>
         <div className="col-lg-6">
           <form id="confirm-password" action="" onSubmit={handleSubmit}>

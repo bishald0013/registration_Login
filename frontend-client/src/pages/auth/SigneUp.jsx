@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import {useNavigate} from "react-router-dom"
 import { useRegisterUserMutation } from "../../services/userAuthApi";
+import { setToken } from "../../services/LocalStorage"
 
 function SigneUp() {
 
@@ -28,36 +29,31 @@ function SigneUp() {
         confirm_password: user.get("confirm_password"),
         tc: user.get("tc")
     }
-   
+    if(actualUser.name && actualUser.email && actualUser.password && actualUser.confirm_password && actualUser.tc){
+      if(actualUser.password === actualUser.confirm_password){
+        if(actualUser.tc !== null){
 
-    const {name, email, password , confirm_password, tc} = actualUser
-
-  if(password && confirm_password){
-    if(password === confirm_password){
-      if(tc != null){
-        if(name && email){
-          
           const res = await registerUser(actualUser)
-          setResp(resp)
           console.log(res)
-          console.log(actualUser)
-          
-          navigate("/")
 
+          if(res.data.status === "success"){
+            navigate("/")
+            setToken(res.data.token)
+
+          }else{
+            setError({status: true, msg:res.data.message, type: "error"})
+          }
+          
         }else{
-          console.log("username or email require")
-          setError({status: true, msg:"userName and email bolth required", type: "error"})
+          setError({status: true, msg:"terms and condition required", type: "error"})
         }
       }else{
-        console.log("please aggree terms and codition")
-        setError({status: true, msg:"please agree terms & condition", type: "error"})
+        setError({status: true, msg:"password and confirm password doesnot matched", type: "error"})
       }
     }else{
-      setError({status: true, msg:"password and confirm password doesnot match", type: "error"})
+      setError({status: true, msg:"All fields are required", type: "error"})
     }
-  }else{
-    setError({status: true, msg:"password and confirm password required", type: "error"})
-  }
+
 
   }
 
