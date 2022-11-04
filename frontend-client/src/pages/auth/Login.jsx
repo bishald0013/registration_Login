@@ -1,8 +1,8 @@
-import { TextField, Button, Box, Alert } from "@mui/material";
+import { TextField, Button, Box, Alert } from "@mui/material"
 import {Link, useNavigate} from "react-router-dom"
 import { useState } from "react";
-import { useLoginUserMutation } from "../../services/userAuthApi";
-import { setToken } from "../../services/LocalStorage";
+import { useLoginUserMutation } from "../../services/userAuthApi"
+import { setToken } from "../../services/LocalStorage"
 
 const Login = () => {
 
@@ -18,7 +18,6 @@ const Login = () => {
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
-
         const user = new FormData(e.currentTarget)
         const actualData = {
             email: user.get("email"),
@@ -28,23 +27,22 @@ const Login = () => {
         if(actualData.email && actualData.password){
 
           const res = await loginUser(actualData)
+          console.log(res)
 
-          if(res.data.status !== "fail"){
+          if(res.data.status === "success"){
+              setToken(res.data.token)
+              console.log(res)
 
-            navigate("/dashbord")
-
-            setToken(res.data.token)
+              navigate("/")
 
           }else{
-              setError({status: true, msg: res.data.mesasge, type: "error"})
+            setError({ status: true, msg: res.data.message, type: "error" })
           }
-
-          console.log(res.data.status)
-          
-
+            
         }else{
-            setError({status: true, msg:"All fields are require", type:"error"})
+            setError({ status: true, msg:"all fields are required", type:"error" })
         }
+
     }
 
   return (

@@ -48,7 +48,7 @@ class UserController {
               .send({ status:"success", message:"Successfully created user", token: token });
           } catch (error) {
             console.log(error);
-            res.send({ status: "fails", message: "something went wrong!" });
+            res.send({ status: "fail", message: "something went wrong!" });
           }
         } else {
           res.send({
@@ -60,7 +60,7 @@ class UserController {
         res.send({ status: "fail", message: "All fields are required" });
       }
     } else {
-      res.send({ status: "fails", message: "email alredy exists" });
+      res.send({ status: "fail", message: "email alredy exists" });
     }
   };
 
@@ -76,7 +76,7 @@ class UserController {
             password,
             userEmail.password
           );
-          if (userEmail.email === email && comparePassword) {
+          if ((userEmail.email === email) && comparePassword) {
             //signing an new jwt token in login so the user can access it after the login
             const token = jwt.sign(
               { userId: userEmail._id },
@@ -85,23 +85,25 @@ class UserController {
             );
 
             res.status(200).send({
-              status: "Success",
-              mesasge: "successsfully login",
-              token: token,
+              status: "success",
+              message: "successsfully login",
+              "token": token,
+              "tc": true
             });
           } else {
             res.status(400).send({
               status: "fail",
               message: "Email or password doesnot match",
+              "tc": false
             })
           }
         } else {
-          res.status(400).send({ status:"fail", message:"Email is not found" });
+          res.status(400).send({ "status":"failed", "message":"Email is not found", "tc": false });
         }
       } else {
         res
           .status(400)
-          .send({ status: "email and password required for login" });
+          .send({ "status": "failed", "message": "email and password required for login", "tc": false });
       }
     } catch (error) {
       res.send(error);
@@ -113,9 +115,9 @@ class UserController {
     try {
       UserModel.deleteMany({ _id: req.params.id }, (err) => {
         if (!err) {
-          res.status(200).send({ status: "success" });
+          res.status(200).send({ "status": "success" });
         } else {
-          res.status(400).send({ status: "fail" });
+          res.status(400).send({ "status": "fail" });
         }
       });
     } catch (error) {
