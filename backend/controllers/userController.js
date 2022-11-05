@@ -139,7 +139,7 @@ class UserController {
 
         res
           .status(201)
-          .send({ status: "success", message: "successfully updated" });
+          .send({ status: "success", message: "password successfully updated" });
       } else {
         res
           .status(400)
@@ -169,7 +169,7 @@ class UserController {
         const token = jwt.sign({ userID: user._id }, secret, {
           expiresIn: "1d",
         });
-        const link = `https://localhost:3000/api/user/resetpassword/${user._id}/${token}`;
+        const link = `http://localhost:3000/api/user/reset/${user._id}/${token}`;
         console.log(link);
 
         //Send email
@@ -181,7 +181,7 @@ class UserController {
         })
 
         res
-          .status(400)
+          .status(200)
           .send({
             "status": "success",
             "message": "Pasword reset link sent successfully",
@@ -196,7 +196,7 @@ class UserController {
   };
 
   static UserPasswordReset = async (req, res) => {
-    const { password, confirm_password } = req.body;
+    const { password, confirm_password } = req.body; 
     const { id, token } = req.params;
     const user = await UserModel.findById(id);
     const new_secret = user._id + process.env.JWT_SECRET_KEY;

@@ -45,6 +45,16 @@ function Dashbord() {
 
           const resp =  await changePassword({newPassword, token})
           console.log(resp)
+          if(resp.data.status === "success"){
+            setError({status: true, msg: resp.data.message, type: "success"})
+            console.log(resp)
+            setTimeout(() => {
+              navigate("/login")
+            }, 2000)
+
+          }else{
+            setError({status: true, msg:resp.data.message, type: "error"})
+          }
 
         }else{
           setError({status: true, msg:"password and confirm both does't match", type: "error"})
@@ -60,7 +70,7 @@ function Dashbord() {
     <div className="container">
       <div className="row mt-5 mx-3">
         <div className="col-lg-6">
-          <h1 className="fs-6">Email: bishaldeb282@gmail.com</h1>
+          <h1 className="fs-6">{getToken}</h1>
           <h2 className="fs-5">UserName: Bishal Deb</h2>
           <button onClick={handleClick} type="submit" class="btn btn-primary">Logout</button>
         </div>

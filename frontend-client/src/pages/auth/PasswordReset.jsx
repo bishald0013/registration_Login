@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button, Box, Alert } from "@mui/material";
-import {useNavigate} from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
+import { useUserResetPasswordMutation } from "../../services/userAuthApi";
 
 function PasswordReset() {
 
@@ -11,26 +12,30 @@ function PasswordReset() {
   })
 
   const navigate = useNavigate()
-
-  const handleSubmit = (e) => {   
+  const { id, token} = useParams()
+  const [userResetPassword] = useUserResetPasswordMutation()
+ 
+  const handleSubmit = async (e) => {   
     e.preventDefault()
     
     const newPassword = new FormData(e.currentTarget)
     const newUserPassword = {
       password: newPassword.get("password"),
-      confirm_Password: newPassword.get("confirm_password")
+      confirm_password: newPassword.get("confirm_password")
     }
 
-    if(newUserPassword.password && newUserPassword.confirm_Password){
-      if(newUserPassword.password === newUserPassword.confirm_Password){
-        document.getElementById("password-reset").reset()
-        setError({status:true, msg:"Successfully changed password", type:"success"})
+    if(newUserPassword.password && newUserPassword.confirm_password){
+      if(newUserPassword.password === newUserPassword.confirm_password){
+        
+        const res = await userResetPassword({newUserPassword, id, token})
+        console.log(res)
 
-        setTimeout(() => {
-          navigate("/login")
-        },2000)
-
-        console.log(newUserPassword)
+        if(res.data.status === "success"){
+          setError({status: true, msg: res.data.message, type: "success"})
+        }
+        if(res.data.status === "fail"){
+          setError({status: true, msg: res.data.message, type: "fail"})
+        }
 
       }else{
         setError({status: true, msg:"password and condirm password doesnot match", type: "error"})

@@ -2,6 +2,8 @@ import { Alert } from "@mui/material";
 import React from "react";
 import {useState} from "react"
 import {useNavigate} from "react-router-dom"
+import { useResetPasswordEmailMutation } from "../../services/userAuthApi";
+
 
 
 function ResetPasswordEmail() {
@@ -12,21 +14,28 @@ function ResetPasswordEmail() {
         type: ""
       })
 
-      const navigate = useNavigate()
+      const [resetPasswordEmail] = useResetPasswordEmailMutation()
+      
 
-      const handleSubmit = (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const actualData = {
           email: data.get('email'),
         }
         if (actualData.email) {
+
+          const res = await resetPasswordEmail(actualData)
           console.log(actualData);
-          document.getElementById('password-reset-email-form').reset()
-          setError({ status: true, msg: "Password Reset Email Sent. Check Your Email !!", type: 'success' })
-          setTimeout(()=>{
-            navigate("/reset")
-          },1000)
+          console.log(res)
+
+          if(res.data.status === "success"){
+              setError({ status: true, msg: res.data.message, type: 'success' })
+          }
+          if(res.data.status === "fail"){
+            setError({ status: true, msg: res.data.message, type: 'error' })
+          }
+
         } else {
           setError({ status: true, msg: "Please Provide Valid Email", type: 'error' })
         }
