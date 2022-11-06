@@ -47,7 +47,7 @@ export const userAuthApi = createApi({
       }
     }),
 
-    getLoggedUser: builder.mutation({
+    getLoggedUser: builder.query({
       query: (token) =>{
         return{
           url: "loggedUser",
@@ -90,4 +90,4 @@ export const userAuthApi = createApi({
 
 
 export const {useRegisterUserMutation, useLoginUserMutation, useChangePasswordMutation, 
-  useGetLoggedUserMutation, useResetPasswordEmailMutation, useUserResetPasswordMutation} = userAuthApi
+  useGetLoggedUserQuery, useResetPasswordEmailMutation, useUserResetPasswordMutation} = userAuthApi
