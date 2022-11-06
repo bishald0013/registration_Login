@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { getToken } from "../services/LocalStorage";
 
 function Navbar() {
-  const token = getToken("token");
+  const token = getToken();
 
   return (
     <div>
@@ -20,40 +20,40 @@ function Navbar() {
             >
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav">
+                <li className="nav-item">
                   <Link
                     to="/"
-                    class="nav-link active"
+                    className="nav-link active"
                     aria-current="page"
                     href="#"
                   >
                     Home
                   </Link>
                 </li>
-                <li class="nav-item">
-                  <Link to="contact" class="nav-link" href="#">
+                <li className="nav-item">
+                  <Link to="contact" className="nav-link" href="#">
                     Contact
                   </Link>
                 </li>
 
                 {token ? (
-                  <li class="nav-item">
-                    <Link to="dashbord" class="nav-link active">
+                  <li className="nav-item">
+                    <Link to="dashbord" className="nav-link active">
                       Dashbord
                     </Link>
                   </li>
                 ) : (
-                  <div>
+                  <div className="collapse navbar-collapse" id="navbarNav" >
                     {" "}
-                    <li class="nav-item">
-                      <Link to="Login" class="nav-link active">
+                    <li className="nav-item">
+                      <Link to="Login" className="nav-link active">
                         Login
                       </Link>
                     </li>
-                    <li class="nav-item">
-                      <Link to="signeup" class="nav-link active">
+                    <li className="nav-item">
+                      <Link to="signeup" className="nav-link active">
                         SigneUp
                       </Link>
                     </li>{" "}
